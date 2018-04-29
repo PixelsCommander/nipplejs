@@ -606,6 +606,8 @@ Nipple.prototype.resetDirection = function () {
 
 Nipple.prototype.computeDirection = function (obj) {
     var rAngle = obj.angle.radian;
+    var dAngle = obj.angle.degree;
+    var angle225 = Math.PI / 8;
     var angle45 = Math.PI / 4;
     var angle90 = Math.PI / 2;
     var direction, directionX, directionY;
@@ -632,16 +634,28 @@ Nipple.prototype.computeDirection = function (obj) {
     // _______               | RIGHT
     //                  LEFT |
     //   DOWN                |
-    if (rAngle > -angle90 && rAngle < angle90) {
+    /* if (rAngle > -angle90 && rAngle < angle90) {
         directionX = 'left';
     } else {
         directionX = 'right';
+    } */
+
+    console.log(dAngle)
+
+    if (dAngle > (-45 -22.5) && dAngle < (45 + 22.5)) {
+        directionX = 'left';
+    } else if (dAngle > (135 - 22.5) || dAngle < (-135 + 22.5)) {
+        directionX = 'right';
+    } else {
+        directionX = 'null';
     }
 
-    if (rAngle > 0) {
+    if (dAngle > (45 - 22.5) && dAngle < (135 + 22.5)) {
         directionY = 'up';
-    } else {
+    } else if (dAngle < (-45 + 22.5) && dAngle > (-135 - 22.5)) {
         directionY = 'down';
+    } else {
+        directionY = 'null';
     }
 
     if (obj.force > this.options.threshold) {
@@ -1434,3 +1448,4 @@ return {
 };
 
 });
+
